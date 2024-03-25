@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEditorInternal;
 using UnityEngine;
 
@@ -10,6 +13,7 @@ public class Jump : MonoBehaviour
     public float jumpAmount = 10;
     public float GravityScale = 1f;
     public float fallingGravityScale = 40;
+    bool onFloor = false;
     
     void Start()
     {
@@ -18,18 +22,31 @@ public class Jump : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce(Physics.gravity * (GravityScale - 1) * rb.mass);
+      
     }
 
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "floor")
+        {
+            onFloor = true;
+            
+        }
+
+        
+    }
 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+      
+        if (Input.GetKeyDown(KeyCode.Space) && onFloor == true)
         {
             Debug.Log("space key was pressed");
             rb.AddForce(Vector3.up * jumpAmount, ForceMode.Impulse);
+            onFloor = false;
+            
         }
         
 

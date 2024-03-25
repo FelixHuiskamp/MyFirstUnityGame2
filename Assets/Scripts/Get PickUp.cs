@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GetPickUp : MonoBehaviour
 {
+    private KeepScore scoreScript;
     Renderer r;
     AudioSource Pop;
     
@@ -13,7 +14,7 @@ public class GetPickUp : MonoBehaviour
         Pop = GetComponent<AudioSource>();
         r = GetComponent<Renderer>();
 
-        
+        scoreScript = FindAnyObjectByType<KeepScore>();
 
         ps = GetComponent<ParticleSystem>();
 
@@ -31,8 +32,9 @@ public class GetPickUp : MonoBehaviour
             GameObject.Destroy(gameObject, 0.5f);
             Pop.Play();
             ps.Play();
-            
-            
+            scoreScript.AddScore(5);
+
+
         }
     }
 
@@ -50,7 +52,7 @@ public class GetPickUp : MonoBehaviour
     
     void Update()
     {
-        
+
         
 
     }
